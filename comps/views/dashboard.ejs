@@ -1,0 +1,253 @@
+<!-- Dashboard Page: views/dashboard.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      <!--<link rel="stylesheet" href="/css/styles.css"> -->
+      <title>Money Tracker - Dashboard</title>
+      <style>
+         /* Add your custom styles here */
+         body {
+            background: linear-gradient(to right, #bfdcf6, #a1cff7, #fcfaee, #a1cff7, #bfdcf6);
+         padding-top: 70px;
+         }
+         .log-btn {
+         padding: 10px;
+         border-radius: 20px;
+         }
+         .container {
+         background-color: #ffffff; /* White container background */
+         border-radius: 8px; /* Rounded corners for the container */
+         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift */
+         padding: 20px;
+         margin-top: 20px;
+         }
+         .jumbotron {
+         background-color: #9ecceb;
+         color: #fff;
+         }
+         
+         p {
+         color: #6c757d; /* Gray text color */
+         }
+         /* Improved styling for forms and buttons */
+         .form-group {
+         margin-bottom: 15px;
+         }
+         .btn-primary {
+         background-color: #007bff; /* Blue button background color */
+         border-color: #007bff;
+         }
+         .btn-primary:hover {
+         background-color: #27ae60;
+         border-color: #27ae60;
+         }
+         .btn-secondary {
+         background-color: #6c757d; /* Gray button background color */
+         border-color: #6c757d; /* Gray button border color */
+         }
+         .navbar-brand { font-weight: bold; font-size: 1.5rem; }
+         .nav-link { padding: 0.5rem 1rem; }
+         .dropdown-menu-right { margin-right: 0; }
+         .dropdown-item { padding: 0.25rem 1.5rem; }
+         .dropdown-item:focus, .dropdown-item:hover { background-color: rgba(255, 255, 255, 0.1); }
+         .dropdown-item.active, .dropdown-item:active { background-color: rgba(255, 255, 255, 0.2); }
+         .finance-details {
+         border: 1px solid #e9ecef;
+         border-radius: 8px;
+         padding: 20px;
+         background-image: linear-gradient(to bottom right, #cddae8, #c0ddfd);
+         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+         margin-top: 20px;
+         }
+         .finance-details h5 {
+         color: #6c757d;
+         font-weight: bold;
+         font-size: 1.25rem;
+         margin-bottom: 15px;
+         }
+         .finance-details p {
+         color: #343a40;
+         font-size: 1.1rem;
+         display: flex;
+         flex-direction: column;
+         }
+         .finance-details .total-income,
+         .finance-details .total-expenses,
+         .finance-details .balance {
+         margin-bottom: 5px;
+         }
+         .finance-details .total-income span,
+         .finance-details .total-expenses span,
+         .finance-details .balance span {
+         font-weight: bold;
+         font-size: 1.1rem;
+         }
+         .weekly-expenses {
+         border: 1px solid #e9ecef;
+         border-radius: 8px;
+         padding: 20px;
+         background-image: linear-gradient(to bottom right,  #cddae8, #b8d8fd);
+         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+         margin-top: 20px;
+         }
+         .weekly-expenses h5 {
+         color: #6c757d;
+         font-weight: bold;
+         font-size: 1.25rem;
+         margin-bottom: 15px;
+         }
+         .weekly-expenses ul {
+         padding-left: 0;
+         list-style: none;
+         }
+         .weekly-expenses li {
+         padding: 10px 10px;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         border: none;
+         border-bottom: 1px solid #e9ecef; /* Add border between items */
+         }
+         .weekly-expenses .description {
+         color: #343a40;
+         flex: 1;
+         font-weight: bold;
+         font-size: 1.1rem;
+         }
+         .weekly-expenses .amount {
+         color: #6c757d;
+         font-weight: bold;
+         font-size: 1.1rem;
+         }
+         .user-name-block {
+    background-color: #54a2f6;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    padding: 30px 0;
+}
+
+.user-name-block h1 {
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.user-name-block p {
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    font-size: 1.25rem;
+}
+      </style>
+   </head>
+   <body>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+         <a class="navbar-brand" href="#">Home</a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button> 
+         <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+               <li class="nav-item active"> <a class="nav-link text-light" href="/transactions">Transactions</a> </li>
+               <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Profile </a> 
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink"> <a class="dropdown-item" href="/logout">Logout</a> </div>
+               </li>
+            </ul>
+         </div>
+      </nav>
+      <div class="container mt-4">
+        <div class="jumbotron text-center user-name-block">
+            <h1 class="display-4 roboto-font">Hello, <%= user.username %>!</h1>
+            <p class="lead">Track your finances with ease.</p>
+        </div>
+         <div class="row">
+            <div class="col-md-6 mb-4">
+               <div class="finance-details">
+                  <h5 class="card-title">Finance Details</h5>
+                  <p class="card-text">
+                     <!-- Display finance details here -->
+                  <div class="total-income">
+                     Total Income: $<span><%= calculateTotalIncome(expenses) %></span>
+                  </div>
+                  <div class="total-expenses">
+                     Total Expenses: $<span><%= calculateTotalExpenses(expenses) %></span>
+                  </div>
+                  <div class="balance">
+                     Balance: $<span><%= calculateBalance(expenses) %></span>
+                  </div>
+                  </p>
+               </div>
+            </div>
+            <div class="col-md-6 mb-4">
+               <div class="weekly-expenses">
+                  <h5 class="card-title">Weekly Expenses</h5>
+                  <ul class="list-group list-group-flush">
+                      <!-- Display weekly expenses here -->
+                      <% const weeklyExpenses = getWeeklyExpenses(expenses); %>
+                      <% weeklyExpenses.forEach(entry => { %>
+                          <li class="list-group-item d-flex justify-content-between align-items-center" 
+                              style="<%- entry.type === 'Expense' ? 'background-color: #ffb3b3; border: none;' : 'background-color: #b3ffb3; border: none;' %>">
+                              <span class="description flex-grow-1" 
+                                  style="color: <%- entry.type === 'Expense' ? '#8c0000;' : '#006400;'; %>; font-weight: bold; font-size: 1.1rem;">
+                                  <%= entry.description %>
+                              </span>
+                              <span class="amount" 
+                                  style="color: <%- entry.type === 'Expense' ? '#8c0000;' : '#006400;'; %>; font-weight: bold; font-size: 1.1rem;">
+                                  $<%= entry.amount.toFixed(2) %>
+                              </span>
+                          </li>
+                      <% }); %>
+                  </ul>
+              </div>
+                            
+            </div>
+         </div>
+         <center>
+            <button id="addTransactionBtn" class="btn btn-primary" data-toggle="modal" data-target="#addTransactionModal">
+            Add Transaction
+            </button>
+         </center>
+      </div>
+      </div>
+      <div class="modal fade" id="addTransactionModal" tabindex="-1" role="dialog" aria-labelledby="addTransactionModalLabel"
+         aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="addTransactionModalLabel">Add Transaction</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  <form id="transactionForm" action="/addTransaction" method="POST">
+                     <div class="form-group">
+                        <label for="description">Description:</label>
+                        <input type="text" class="form-control" id="description" name="description" required>
+                     </div>
+                     <div class="form-group">
+                        <label for="amount">Amount ($):</label>
+                        <input type="number" class="form-control" id="amount" name="amount" step="0.01" required>
+                     </div>
+                     <div class="form-group">
+                        <label for="type">Type:</label>
+                        <select class="form-control" id="type" name="type" required>
+                           <option value="Expense">Expense</option>
+                           <option value="Income">Income</option>
+                        </select>
+                     </div>
+                     <button type="submit" class="btn btn-primary">Add Transaction</button>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+      <script src="/js/main.js"></script>
+   </body>
+</html>
